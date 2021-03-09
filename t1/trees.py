@@ -6,6 +6,9 @@ class SimpleTreeNode:
         self.Children = []  # список дочерних узлов
         self.Level = 0
 
+    def SetLevel(self, val):
+        self.Level = val
+
 
 class SimpleTree:
 
@@ -153,15 +156,18 @@ class SimpleTree:
     def SetLevels(self):
         # добавляем в список для поиска дочерних узлов корень
         queue = [self.Root]
+        # FIXME: проход снизу вверх
 
         # пока этот список непустой
         while len(queue) > 0:
             # достаем один элемент
             q = queue.pop()
+            level = q.Level
             # если у него есть дочерние
             if len(q.Children) > 0:
                 # добавляем их в список для поиска дочерних элементов
                 queue.extend(q.Children)
                 # и увеличиваем счетчик на их количество
-                q.Level += q.Level
+                level += len(q.Children)
+                q.SetLevel(level)
 

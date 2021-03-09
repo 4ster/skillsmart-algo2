@@ -294,7 +294,24 @@ class SimpleTreeNodeTestCase(unittest.TestCase):
             0
         )
 
+    def test_levels(self):
+        # создаем дерево
+        parent_node = SimpleTreeNode(0, None)
+        tree = SimpleTree(parent_node)
 
+        # создаем и добавляем дочерние узлы
+        child_node = SimpleTreeNode(1, None)
+        tree.AddChild(parent_node, child_node)
+
+        child_node1 = SimpleTreeNode(2, None)
+        tree.AddChild(child_node, child_node1)
+
+        tree.SetLevels()
+
+        self.assertTupleEqual(
+            (parent_node.Level, child_node.Level, child_node1.Level),
+            (0, 1, 2)
+        )
 
 
 if __name__ == '__main__':
